@@ -1,116 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mini Militia Classic Key</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Key Manager</title>
+
+<style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #f6f8fc;
-      margin: 0;
-      text-align: center;
-      padding: 20px;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f3f7fa;
     }
-    h1 {
-      color: #0f172a;
-      font-size: 26px;
-      margin-bottom: 5px;
+
+    .header {
+        padding: 20px;
+        background: white;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-bottom: 1px solid #ddd;
     }
-    p {
-      color: #555;
-      font-size: 14px;
+    .header img { width: 45px; }
+    .header-title { font-size: 24px; font-weight: bold; }
+    .header-subtitle { font-size: 14px; color: gray; margin-top: -5px; }
+
+    .search-box { padding: 15px; }
+    .search-box input {
+        width: 100%;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        outline: none;
     }
+
+    .section-title {
+        padding: 0 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .active-badge {
+        float: right;
+        margin-right: 20px;
+        background: #27c26c;
+        padding: 5px 15px;
+        border-radius: 50px;
+        color: white;
+        font-size: 16px;
+    }
+
     .card {
-      display: inline-block;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: left;
-      width: 300px;
-      margin-top: 20px;
+        background: white;
+        margin: 20px;
+        padding: 15px;
+        border-radius: 18px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
     }
-    .key {
-      color: #334155;
-      font-weight: bold;
-      margin: 8px 0;
-      word-break: break-word;
+
+    .card img {
+        width: 65px;
+        height: 65px;
+        border-radius: 12px;
     }
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      float: right;
+
+    .card-content { flex: 1; }
+
+    .card-title { font-size: 20px; font-weight: bold; }
+
+    .time {
+        margin-top: 6px;
+        color: #555;
+        display: inline-block;
+        background: #ecf1f6;
+        padding: 6px 12px;
+        border-radius: 10px;
+        font-size: 14px;
     }
-    button:hover { background: #1e40af; }
-    img {
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      margin-right: 10px;
-      float: left;
+
+    /* Clickable GET KEY link */
+    .get-link {
+        background: #1677ff;
+        color: white;
+        padding: 14px 22px;
+        border-radius: 12px;
+        font-size: 17px;
+        text-decoration: none;
+        font-weight: bold;
     }
-  </style>
+</style>
 </head>
+
 <body>
-  <h1>Mini Militia Classic Key</h1>
-  <p id="update-time"></p>
 
-  <div class="card">
-    <img src="https://i.imgur.com/5mZQ1wM.png" alt="Mini Militia Classic" />
+<!-- Header -->
+<div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png">
     <div>
-      <div class="key" id="key-display"></div>
-      <button onclick="copyKey()">Copy Key</button>
+        <div class="header-title">Key Manager</div>
+        <div class="header-subtitle">Secure key distribution system</div>
     </div>
-  </div>
+</div>
 
-  <script>
-    function generateKey() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let key = '';
-      for (let i = 0; i < 20; i++) {
-        if (i > 0 && i % 5 === 0) key += '-';
-        key += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return key;
-    }
+<!-- Search -->
+<div class="search-box">
+    <input type="text" placeholder="Search keys by name...">
+</div>
 
-    function getCurrentCycleKey() {
-      const now = new Date();
-      const base = new Date(2025, 0, 1);
-      const diffDays = Math.floor((now - base) / (1000 * 60 * 60 * 24));
-      const cycle = Math.floor(diffDays / 3);
-      let seed = cycle.toString();
-      let key = '';
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (let i = 0; i < 20; i++) {
-        if (i > 0 && i % 5 === 0) key += '-';
-        key += chars.charAt((seed.charCodeAt(i % seed.length) + i * 13) % chars.length);
-      }
-      return key;
-    }
+<!-- Section -->
+<div class="section-title">Modded By<span class="active-badge">👿 DEVILMODZ👿</span></div>
 
-    function copyKey() {
-      const key = document.getElementById("key-display").innerText;
-      navigator.clipboard.writeText(key);
-      alert("Key copied!");
-    }
+<!-- Key 1 -->
+<div class="card">
+    <img src="https://i.ibb.co/N22FsVQN/app-icon.png">
+    <div class="card-content">
+        <div class="card-title">Stick War Lagcy 32bit</div>
+        <div class="time">Nov 17, 2025 14:42</div>
+    </div>
 
-    function updateDisplay() {
-      const key = getCurrentCycleKey();
-      document.getElementById("key-display").innerText = "Key: " + key;
+    <!-- GET KEY LINK -->
+    <a href="https://starking.22web.org/getkey.html" class="get-link" target="_blank">GET KEY</a>
+</div>
 
-      const now = new Date();
-      document.getElementById("update-time").innerText = 
-        "Updated at " + now.toLocaleString();
-    }
-
-    updateDisplay();
-  </script>
 </body>
 </html>
